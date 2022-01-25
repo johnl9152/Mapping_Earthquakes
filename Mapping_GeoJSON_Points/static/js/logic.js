@@ -1,36 +1,278 @@
-// Add console.log to check to see if our code is working.
-console.log("working");
+// // 13.5.2
+// // // Map a GeoJSON Point - marker at SFO
 
-// Create the map object with center at the San Francisco airport.
-let map = L.map('mapid').setView([37.6213, -122.3790], 4);
+// // // Add console.log to check to see if our code is working.
+// // console.log("working");
 
-// Coordinates for each point to be used in the polyline.
-// SFO - AUS - YYZ - DCA - SFO
-let line = [
-    [37.6213, -122.3790],
-    [30.1975, -97.6664],
-    [43.6777, -79.6248],
-    [38.8512, -77.0402],
-    [40.6413, -73.7781],
-  ];
+// // // Create the map object with center at the San Francisco airport.
+// // let map = L.map('mapid').setView([37.5, -122.5], 10);
 
-// Create a polyline using the line coordinates 
-// Make the route a blue dashed line, with a weight of 4 and opacity of 0.5 on the light map.
+// // // Add GeoJSON data.
+// // let sanFranAirport =
+// // {"type":"FeatureCollection","features":[{
+// //     "type":"Feature",
+// //     "properties":{
+// //         "id":"3469",
+// //         "name":"San Francisco International Airport",
+// //         "city":"San Francisco",
+// //         "country":"United States",
+// //         "faa":"SFO",
+// //         "icao":"KSFO",
+// //         "alt":"13",
+// //         "tz-offset":"-8",
+// //         "dst":"A",
+// //         "tz":"America/Los_Angeles"},
+// //         "geometry":{
+// //             "type":"Point",
+// //             "coordinates":[-122.375,37.61899948120117]}}
+// // ]};
 
-L.polyline(line, {
-    color: "blue",
-    opacity: 0.5,
-    dashArray: '2, 5'
- }).addTo(map);
+// // // Grabbing our GeoJSON data.
+// // L.geoJSON(sanFranAirport).addTo(map);
 
-// We create the tile layer that will be the background of our map.
-// Light Background
-let streets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+// // // We create the tile layer that will be the background of our map.
+// // // Default - Streets Background
+// // let streets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+// // attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
+// //     maxZoom: 18,
+// //     accessToken: API_KEY
+// // });
+
+// // hen we add our 'graymap' tile layer to the map.
+// streets.addTo(map);
+
+
+
+
+// // Map a GeoJSON Point - marker at SFO airport - Bind a Popup to the Marker 
+
+// // Add console.log to check to see if our code is working.
+// console.log("working");
+
+// // Create the map object with center at the San Francisco airport.
+// let map = L.map('mapid').setView([37.5, -122.5], 10);
+
+// // Add GeoJSON data.
+// let sanFranAirport =
+// {"type":"FeatureCollection","features":[{
+//     "type":"Feature",
+//     "properties":{
+//         "id":"3469",
+//         "name":"San Francisco International Airport",
+//         "city":"San Francisco",
+//         "country":"United States",
+//         "faa":"SFO",
+//         "icao":"KSFO",
+//         "alt":"13",
+//         "tz-offset":"-8",
+//         "dst":"A",
+//         "tz":"America/Los_Angeles"},
+//         "geometry":{
+//             "type":"Point",
+//             "coordinates":[-122.375,37.61899948120117]}}
+// ]};
+
+// // // Grabbing our GeoJSON data.
+// // // onEachFeature Function - add marker
+// // L.geoJson(sanFranAirport, {
+// //   // We turn each feature into a marker on the map.
+// //     onEachFeature: function(feature, layer) {
+// //       console.log(layer);
+// //       layer.bindPopup();
+// //     }
+// // }).addTo(map);
+
+
+// // Grabbing our GeoJSON data.
+// // onEachFeature Function - add marker + airport code + airport name
+// L.geoJson(sanFranAirport, {
+//   // We turn each feature into a marker on the map.
+//     onEachFeature: function(feature, layer) {
+//       console.log(layer);
+//       layer.bindPopup("<h2>" + "Airport: " + feature.properties.faa + "</h2>" + "<h2>" + "Airport name: " + feature.properties.name +"</h2>");
+//  }
+// }).addTo(map);
+
+// // // Grabbing GeoJSON data   
+// // // We turn each feature into a marker on the map.
+// //   // open console in DevTools to see that the feature is the JavaScript object geometry and properties of our GeoJSON object
+// //   pointToLayer: function(feature, latlng) {
+// //     console.log(feature);
+// //     return L.marker(latlng)
+// //     // // return city name
+// //     // .bindPopup("<h2>" + feature.properties.city + "</h2>");
+// //     // // return name of airport + city name + country
+// //       .bindPopup("<h2>" + feature.properties.name + "</h2>" + "<h2>" + feature.properties.city + ", " + feature.properties.country + "</h2>");
+// //   }
+// // }).addTo(map);
+
+// // We create the tile layer that will be the background of our map.
+// // // Night Preview Background
+// // let streets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/navigation-preview-night-v2/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+// // Outdoors Background
+// let streets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+// attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
+//     maxZoom: 18,
+//     accessToken: API_KEY
+// });
+
+// // Then we add our 'graymap' tile layer to the map.
+// streets.addTo(map);
+
+
+
+
+
+// //13.5.3
+// // Create the map object with center and zoom level.
+// let map = L.map('mapid').setView([30, 30], 2);
+
+// // We create the tile layer that will be the background of our map.
+// // // Streets Background
+// let streets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+// attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
+//     maxZoom: 18,
+//     accessToken: API_KEY
+// });
+
+// // Then we add our 'streets' tile layer to the map.
+// streets.addTo(map);
+
+// // Accessing the airport GeoJSON URL
+// let airportData = "https://raw.githubusercontent.com/cmmgw/Mapping_Earthquakes/main/majorAirports.json";
+
+// // Grabbing our GeoJSON data.
+// d3.json(airportData).then(function(data) {
+//   console.log(data);
+// // Creating a GeoJSON layer with the retrieved data.
+// L.geoJson(data).addTo(map);
+// });
+
+
+
+//13.5.3 Skill Drill
+// // Edit your L.geoJson() layer to add a popup marker that displays all airports' codes and names.
+// // Create the map object with center and zoom level.
+// let map = L.map('mapid').setView([30, 30], 2);
+
+// // We create the tile layer that will be the background of our map.
+// // // Streets Background
+// let streets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+// attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
+//     maxZoom: 18,
+//     accessToken: API_KEY
+// });
+
+// // Then we add our 'streets' tile layer to the map.
+// streets.addTo(map);
+
+// // Accessing the airport GeoJSON URL
+// let airportData = "https://raw.githubusercontent.com/cmmgw/Mapping_Earthquakes/main/majorAirports.json";
+
+// // Grabbing our GeoJSON data.
+// d3.json(airportData).then(function(data) {
+//   console.log(data);
+// // Creating a GeoJSON layer with the retrieved data.
+// L.geoJson(data, {
+//       onEachFeature: function(feature, layer) {
+//           console.log(layer);
+//           layer.bindPopup("<h3> Airport code: " + feature.properties.faa + "</h3> <hr><h3> Airport name: "
+//                + feature.properties.name + "</h3>");
+//       }
+//   }).addTo(map);
+// });
+
+
+
+
+// 13.5.4 Add Multiple Maps
+// //Create the street view tile layer that will be the default background for map.
+// let streets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+// attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
+//     maxZoom: 18,
+//     accessToken: API_KEY
+// });
+
+// // Create the dark view tile layer that will be an option for map.
+// let dark = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v10/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+// attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
+//     maxZoom: 18,
+//     accessToken: API_KEY
+// });
+
+// // Create a base layer that holds both maps.
+// let baseMaps = {
+//   Street: streets,
+//   Dark: dark
+// };
+
+// // Create the map object with center, zoom level and default layer.
+// let map = L.map('mapid', {
+//   center: [30, 30],
+//   zoom: 2,
+//   layers: [streets]
+// })
+
+// // Pass our map layers into our layers control and add the layers control to the map.
+// L.control.layers(baseMaps).addTo(map);
+
+// // Accessing the airport GeoJSON URL
+// let airportData = "https://raw.githubusercontent.com/cmmgw/Mapping_Earthquakes/main/majorAirports.json";
+
+// // Grabbing our GeoJSON data.
+// d3.json(airportData).then(function(data) {
+//   console.log(data);
+// // Creating a GeoJSON layer with the retrieved data.
+// L.geoJson(data).addTo(map);
+// });
+
+
+
+// // 13.5.4 Add Multiple Maps SKILL DRILL
+// Edit your L.geoJson() layer to add a popup marker that displays all airports' codes and names for both the Street and Dark layers.
+
+// Create the street view tile layer that will be the default background for map.
+let streets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
 attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
-
     accessToken: API_KEY
 });
 
-// Then we add our 'graymap' tile layer to the map.
-streets.addTo(map);
+// Create the dark view tile layer that will be an option for map.
+let dark = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v10/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    accessToken: API_KEY
+});
+
+// Create a base layer that holds both maps.
+let baseMaps = {
+  Street: streets,
+  Dark: dark
+};
+
+// Create the map object with center, zoom level and default layer.
+let map = L.map('mapid', {
+  center: [30, 30],
+  zoom: 2,
+  layers: [streets]
+})
+
+// Pass our map layers into our layers control and add the layers control to the map.
+L.control.layers(baseMaps).addTo(map);
+
+// Accessing the airport GeoJSON URL
+let airportData = "https://raw.githubusercontent.com/cmmgw/Mapping_Earthquakes/main/majorAirports.json";
+
+// Grabbing our GeoJSON data.
+d3.json(airportData).then(function(data) {
+  console.log(data);
+// Creating a GeoJSON layer with the retrieved data.
+L.geoJson(data, {
+      onEachFeature: function(feature, layer) {
+          console.log(layer);
+          layer.bindPopup("<h3> Airport code: " + feature.properties.faa + "</h3> <hr><h3> Airport name: "
+               + feature.properties.name + "</h3>");
+      }
+  }).addTo(map);
+});
